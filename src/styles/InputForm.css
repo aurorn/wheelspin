@@ -1,0 +1,114 @@
+.input-form {
+    max-width: 300px;
+    background-color: rgba(41, 41, 41, 0.9);
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .input-field {
+    width: 80%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: rgb(41, 41, 41);
+  }
+  
+  .segment-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+  }
+  
+  .segment-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    margin-bottom: 5px;
+    background-color: rgba(245, 245, 245, 0.1);
+    border-radius: 4px;
+    color: white;
+    position: relative;
+  }
+  
+  .button {
+    padding: 5px 10px;
+    margin: 0 5px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .button-delete {
+    background-color: #FF6B6B;
+    color: white;
+  }
+  
+  .button-delete:hover {
+    background-color: #ff5252;
+  }
+  
+  .button-edit {
+    background-color: #797979;
+    color: white;
+  }
+  
+  .button-edit:hover {
+    background-color: rgb(87, 87, 87);
+  }
+  
+  .add-button {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .color-block {
+    width: 15px;
+    height: 15px;
+    border-radius: 3px;
+    margin-right: 8px;
+    display: inline-block;
+  }
+  
+.segment-info {
+    display: flex;
+    align-items: center;
+
+  }
+.color-picker-container {
+      position: relative;
+      cursor: pointer;
+}
+    
+
+.color-picker {
+  margin-right: 5px;
+  width: 25px;
+  height: 15px;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+}
+
+.color-picker-popover {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  margin-top: 10px;
+}
+
+.color-picker-cover {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
