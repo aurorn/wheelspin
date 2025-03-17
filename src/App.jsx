@@ -1,11 +1,12 @@
-import Wheel from './components/Wheel';
+import Appcontainer from './components/Container';
 import './App.css';
 
-export default function App() {
+const App = () => {
   return (
-    <div className="app">
-      <h1>Spin the Wheel</h1>
-      <Wheel />
+    <div className="App">
+    <Appcontainer />
     </div>
   );
-}
+};
+
+export default App
