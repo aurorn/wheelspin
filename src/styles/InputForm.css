@@ -47,16 +47,16 @@
     cursor: not-allowed;
   }
   
-  .button-delete {
-    background-color: #FF6B6B;
+  .button-delete, .button-cancel {
+    background-color: #ff4848;
     color: white;
   }
   
   .button-delete:hover {
-    background-color: #ff5252;
+    background-color: #ff3838;
   }
   
-  .button-edit {
+  .button-edit, .button-save {
     background-color: #797979;
     color: white;
   }
@@ -87,7 +87,6 @@
       position: relative;
       cursor: pointer;
 }
-    
 
 .color-picker {
   margin-right: 5px;
@@ -111,4 +110,26 @@
   right: 0;
   bottom: 0;
   left: 0;
+}
+
+.edit-input {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  color: white;
+  padding: 4px 8px;
+  margin: 0;
+  font-size: 14px;
+  width: 100px;
+}
+
+.edit-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.segment-info span {
+  white-space: nowrap;
+  overflow: hidden;
 }

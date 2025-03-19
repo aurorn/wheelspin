@@ -20,6 +20,12 @@ const InputForm = ({ segments, setSegments }) => {
   const [displayColorPicker, setDisplayColorPicker] = useState(null);
   const [showColorWarning, setShowColorWarning] = useState(false);
   const [warningMessage, setWarningMessage] = useState('');
+  const [editingIndex, setEditingIndex] = useState(null);
+  const [editingName, setEditingName] = useState('');
+
+  const shortenName = (text) => {
+    return text.substring(0, 7);
+  };
 
   const handleAddSegment = (e) => {
     e.preventDefault();
@@ -59,11 +65,30 @@ const InputForm = ({ segments, setSegments }) => {
   };
 
   const handleEdit = (index) => {
-    const newName = prompt('Enter new name:', segments[index].text);
-    if (newName?.trim()) {
+    setEditingIndex(index);
+    setEditingName(segments[index].text);
+  };
+
+  const handleSaveEdit = (index) => {
+    if (editingName.trim()) {
       setSegments(prev => prev.map((segment, i) => 
-        i === index ? { ...segment, text: newName.trim() } : segment
+        i === index ? { ...segment, text: editingName.trim() } : segment
       ));
+    }
+    setEditingIndex(null);
+    setEditingName('');
+  };
+
+  const handleCancelEdit = () => {
+    setEditingIndex(null);
+    setEditingName('');
+  };
+
+  const handleKeyPress = (e, index) => {
+    if (e.key === 'Enter') {
+      handleSaveEdit(index);
+    } else if (e.key === 'Escape') {
+      handleCancelEdit();
     }
   };
 
@@ -125,21 +150,54 @@ const InputForm = ({ segments, setSegments }) => {
                 style={{ backgroundColor: segment.color }}
                 onClick={() => toggleColorPicker(index)}
               />
-              <span>{segment.text || `Segment ${index + 1}`}</span>
+              {editingIndex === index ? (
+                <input
+                  type="text"
+                  value={editingName}
+                  onChange={(e) => setEditingName(e.target.value)}
+                  onKeyDown={(e) => handleKeyPress(e, index)}
+                  className="edit-input"
+                  autoFocus
+                  maxLength="20"
+                />
+              ) : (
+                <span title={segment.text}>
+                  {shortenName(segment.text) || `Segment ${index + 1}`}
+                  {segment.text.length > 7 && '...'}</span>
+              )}
             </div>
             <div>
-              <button 
-                onClick={() => handleEdit(index)} 
-                className="button button-edit"
-              >
-                Edit
-              </button>
-              <button 
-                onClick={() => handleDelete(index)} 
-                className="button button-delete"
-              >
-                Delete
-              </button>
+              {editingIndex === index ? (
+                <>
+                  <button 
+                    onClick={() => handleSaveEdit(index)}
+                    className="button button-save"
+                  >
+                    Save
+                  </button>
+                  <button 
+                    onClick={handleCancelEdit}
+                    className="button button-cancel"
+                  >
+                    Cancel
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button 
+                    onClick={() => handleEdit(index)}
+                    className="button button-edit"
+                  >
+                    Edit
+                  </button>
+                  <button 
+                    onClick={() => handleDelete(index)}
+                    className="button button-delete"
+                  >
+                    Delete
+                  </button>
+                </>
+              )}
             </div>
             {displayColorPicker === index && (
               <div className="color-picker-popover">
