@@ -18,16 +18,38 @@ const GITHUB_COLORS = [
 const InputForm = ({ segments, setSegments }) => {
   const [newSegmentName, setNewSegmentName] = useState('');
   const [displayColorPicker, setDisplayColorPicker] = useState(null);
+  const [showColorWarning, setShowColorWarning] = useState(false);
+  const [warningMessage, setWarningMessage] = useState('');
 
   const handleAddSegment = (e) => {
     e.preventDefault();
     if (!newSegmentName.trim()) return;
     
     const defaultColor = GITHUB_COLORS[segments.length % GITHUB_COLORS.length];
-    setSegments(prev => [...prev, { 
-      color: defaultColor, 
-      text: newSegmentName.trim() 
-    }]);
+    
+    if (segments.some(segment => segment.color.toLowerCase() === defaultColor.toLowerCase())) {
+      const unusedColor = GITHUB_COLORS.find(color => 
+        !segments.some(segment => segment.color.toLowerCase() === color.toLowerCase())
+      );
+      
+      if (!unusedColor) {
+        setWarningMessage('No unique colors available');
+        setShowColorWarning(true);
+        setTimeout(() => setShowColorWarning(false), 3000);
+        return;
+      }
+
+      setSegments(prev => [...prev, { 
+        color: unusedColor, 
+        text: newSegmentName.trim() 
+      }]);
+    } else {
+      setSegments(prev => [...prev, { 
+        color: defaultColor, 
+        text: newSegmentName.trim() 
+      }]);
+    }
+    
     setNewSegmentName('');
   };
 
@@ -46,9 +68,23 @@ const InputForm = ({ segments, setSegments }) => {
   };
 
   const handleColorChange = (color, index) => {
+    const newColor = color.hex;
+    
+    const isDuplicate = segments.some((segment, i) => 
+      i !== index && segment.color.toLowerCase() === newColor.toLowerCase()
+    );
+
+    if (isDuplicate) {
+      setWarningMessage('This color is already used in another segment');
+      setShowColorWarning(true);
+      setTimeout(() => setShowColorWarning(false), 3000);
+      return;
+    }
+
     setSegments(prev => prev.map((segment, i) => 
-      i === index ? { ...segment, color: color.hex } : segment
+      i === index ? { ...segment, color: newColor } : segment
     ));
+    setDisplayColorPicker(null);
   };
 
   const toggleColorPicker = (index) => {
@@ -57,6 +93,11 @@ const InputForm = ({ segments, setSegments }) => {
 
   return (
     <div className="input-form">
+      {showColorWarning && (
+        <div className="warning-popup">
+          {warningMessage}
+        </div>
+      )}
       <form onSubmit={handleAddSegment}>
         <input
           type="text"
