@@ -8,6 +8,7 @@ const Wheel = ({ segments, onWin }) => {
   const [isSpinning, setIsSpinning] = useState(false);
   const [totalRotation, setTotalRotation] = useState(0);
   const [winner, setWinner] = useState(null);
+  const [showWarning, setShowWarning] = useState(false);
 
   const createSegmentStyle = (index, totalSegments) => {
     const degree = 360 / totalSegments;
@@ -19,6 +20,18 @@ const Wheel = ({ segments, onWin }) => {
   };
 
   const spinWheel = () => {
+    if (segments.length === 0) {
+      setShowWarning(true);
+      setTimeout(() => setShowWarning(false), 3000);
+      return;
+    }
+
+    if (segments.length === 1) {
+      setWinner(segments[0].text);
+      onWin(segments[0].text);
+      return;
+    }
+
     if (isSpinning) return;
 
     setIsSpinning(true);
@@ -44,6 +57,11 @@ const Wheel = ({ segments, onWin }) => {
 
   return (
     <div className="wheel-container">
+      {showWarning && (
+        <div className="warning-popup">
+          Add at least one segment to spin the wheel.
+        </div>
+      )}
       <div className="winner-title">
         {winner && `Winner: ${winner}`}
       </div>
