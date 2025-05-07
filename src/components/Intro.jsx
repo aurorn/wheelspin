@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/Intro.css';
+import NavBar from './NavBar.jsx';
 import IntroWheel from './IntroWheel.jsx';
 export default function Intro() {
     
@@ -15,11 +16,7 @@ export default function Intro() {
     }
     return (
         <div className="intro-page container">
-            <div className="top-bar">
-                <img src="#" alt="Logo" className="logo" />
-                <p className="main-title">Spin the Wheel</p>
-                <img src="#" alt="github" className="github" />
-            </div>
+            <NavBar />
             <div className="intro-content">
                 <h1 className="intro-title">Welcome!</h1>
                 <IntroWheel />
