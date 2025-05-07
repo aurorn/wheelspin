@@ -4,6 +4,7 @@ import InputForm from './InputForm';
 import Winners from './Winners';
 import '../styles/Container.css';
 
+
 const INITIAL_SEGMENTS = [
   { color: '#FF6B6B', text: 'Segment 1'},
   { color: '#4ECDC4', text: 'Segment 2'}
@@ -49,6 +50,7 @@ const AppContainer = () => {
         <InputForm segments={segments} setSegments={setSegments} />
       </div>
     </div>
+    
   );
 };
 

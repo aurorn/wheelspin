@@ -18,3 +18,7 @@ body {
   padding: 0;
   height: 100%;
 }
+
+.hide-intro, .hide-app {
+  display: none;
+}
