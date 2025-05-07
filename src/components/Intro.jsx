@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/Intro.css';
+import IntroWheel from './IntroWheel.jsx';
 export default function Intro() {
     
 
@@ -20,7 +21,9 @@ export default function Intro() {
                 <img src="#" alt="github" className="github" />
             </div>
             <div className="intro-content">
-                <h1 className="intro-title">Welcome to Spin the Wheel!</h1>
+                <h1 className="intro-title">Welcome!</h1>
+                <IntroWheel />
+
                 <button className="start-button" onClick={handleClick}>Start</button>
             </div>
         </div>
