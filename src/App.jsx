@@ -1,6 +1,5 @@
 import Appcontainer from './components/Container';
 import './App.css';
-import Intro from './components/Intro';
 
 const App = () => {
   return (
